@@ -1,4 +1,4 @@
-import { logout } from "../../store/slices/dataSlice";
+import { logout } from "../../store/slices/authSlice";
 import { useAppDispatch } from "../../store/storeHooks";
 
 type Props = {

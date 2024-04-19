@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import classNames from "classnames";
 import { Product } from "../@types/ententy/Product"
 import { useAppDispatch, useAppSelector } from "../store/storeHooks";
-import { decreaseCountAndRemoveIfZero, pushToBasket, removePostion, selectBasketProduct } from "../store/slices/dataSlice";
+import { decreaseCountAndRemoveIfZero, pushToBasket, removePostion, selectBasketProduct } from "../store/slices/authSlice";
 import { BasketData } from "../@types/ententy/BasketData";
 
 type ProductCardProps = {

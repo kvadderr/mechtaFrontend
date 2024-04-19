@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { BasketProductCard } from "../shared/Card"
-import { selectBasketProduct } from "../store/slices/dataSlice"
+import { selectBasketProduct } from "../store/slices/authSlice"
 import { useAppSelector } from "../store/storeHooks"
 import classNames from "classnames"
 

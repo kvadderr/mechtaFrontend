@@ -6,7 +6,7 @@ import Home from "./pages/Home"
 
 import Promo from "./components/Promo"
 import { useAppDispatch, useAppSelector } from "./store/storeHooks"
-import { selectIsAuthorized, selectProducts, setProducts } from "./store/slices/dataSlice"
+import { selectIsAuthorized } from "./store/slices/authSlice"
 import { Product } from "./@types/ententy/Product"
 import productsMock from "./const/productMock"
 import Search from "./pages/Search"
@@ -15,6 +15,7 @@ import BasketPopup from "./popup/Basket"
 import ProductInfo from "./popup/Product"
 import SelectAddress from "./popup/SelectAdress"
 import { useGetCategoriesQuery } from "./api/categoriesApi"
+import { useGetMyInformationMutation } from "./api/authApi"
 
 function App() {
 
@@ -28,24 +29,28 @@ function App() {
   const [addressOpen, setAddressOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchData, setSearchData] = useState<Product[]>()
-  
+  const [currentMenuItem, setCurrentMenuItem] = useState<number | null>(null)
+  const [getMe] = useGetMyInformationMutation();
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(selectIsAuthorized)
-  const products = useAppSelector(selectProducts)
   const gridRightClass = classNames('grid__col grid__col--right', {
     'grid__col--include-rows': isAuth,
   });
 
   useEffect(() => {
-    dispatch(setProducts(productsMock))
+
   }, [])
 
   useEffect(() => {
     function searchProductByName(name: string): Product[] {
-      return products.filter(product => product.name.toLowerCase().includes(name.toLowerCase()));
+      return []
     }
     searchQuery.length > 0 && setSearchData(searchProductByName(searchQuery))
   }, [searchQuery])
+
+  useEffect(() => {
+    if (isAuth) getMe().unwrap();
+  }, [isAuth])
 
   return (
     <div className="grid">
@@ -64,12 +69,12 @@ function App() {
           <div className="content">
             <BasketPopup isOpen={basketOpen} close={() => setBasketOpen(false)} />
             <SearchHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            {searchQuery.length > 0 ? <Search data={searchData} /> : <Home openInfo={() => setProductInfoOpen(true)}/>}
+            {searchQuery.length > 0 ? <Search data={searchData} /> : <Home openInfo={() => setProductInfoOpen(true)} />}
             <Faq isOpen={faqOpen} close={() => setFaqOpen(false)} />
             <Profile isOpen={profileOpen} close={() => setProfileOpen(false)} />
             <Login isOpen={loginOpen} close={() => setLoginOpen(false)} />
-            <ProductInfo isOpen={productInfoOpen} close={() => setProductInfoOpen(false)}/>
-            <SelectAddress isOpen={addressOpen} close={() => setAddressOpen(false)}/>
+            <ProductInfo isOpen={productInfoOpen} close={() => setProductInfoOpen(false)} />
+            <SelectAddress isOpen={addressOpen} close={() => setAddressOpen(false)} />
           </div>
           <Footer openFooter={() => setFaqOpen(true)} />
         </div>

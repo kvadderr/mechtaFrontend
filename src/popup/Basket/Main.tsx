@@ -1,4 +1,4 @@
-import { selectBasketProduct, selectMobile } from "../../store/slices/dataSlice";
+import { selectBasketProduct, selectMobile } from "../../store/slices/authSlice";
 import { useAppSelector } from "../../store/storeHooks";
 
 type Props = {

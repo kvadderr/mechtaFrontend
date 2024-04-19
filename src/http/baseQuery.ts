@@ -15,9 +15,17 @@ if (localStorage.getItem('token')) {
   headers['Authorization'] = `Bearer ${localStorage.getItem('token')}`;
 }
 
+console.log(localStorage.getItem('token'))
 export const baseQuery = fetchBaseQuery({
   baseUrl: import.meta.env.VITE_BACKEND_URL,
   credentials: 'include',
+  prepareHeaders: (headers, { getState }) => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      headers.set('Authorization', `Bearer ${token}`);
+    }
+    return headers;
+  },
 });
 
 export const baseQueryWithReauth: BaseQueryFn<

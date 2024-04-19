@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store/storeHooks";
-import { login, selectMobile } from "../../store/slices/dataSlice";
+import { selectMobile } from "../../store/slices/authSlice";
+import { useCheckMutation } from "../../api/authApi";
+import ErrorLabel from "../../shared/Label/ErrorLabel";
 
 type Props = {
   close: () => void;
@@ -14,6 +16,7 @@ const CodeInput = (props: Props) => {
   const phone = useAppSelector(selectMobile)
   const [codes, setCodes] = useState(['', '', '', '']);
   const inputsRef = [useRef(), useRef(), useRef(), useRef()];
+  const [checkCode, { isError, data }] = useCheckMutation()
 
   const handleChange = (index: number, e: any) => {
     const { value } = e.target;
@@ -29,11 +32,15 @@ const CodeInput = (props: Props) => {
 
   useEffect(() => {
     const code = codes.join('')
-    if (code.length >= 4 ) {
-      dispatch(login());
-      close();
+    if (code.length >= 4) {
+      checkCode({ phone, code }).unwrap()
     }
   }, [codes])
+
+  useEffect(() => {
+    console.log(data)
+    data && close()
+  }, [data])
 
   return (
     <>
@@ -64,6 +71,7 @@ const CodeInput = (props: Props) => {
                       />
                     ))}
                   </div>
+                  {isError && <ErrorLabel text="Неверный код" />}
                 </div>
               </div>
             </div>

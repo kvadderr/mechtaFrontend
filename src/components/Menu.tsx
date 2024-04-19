@@ -3,7 +3,7 @@ import { Category } from "../@types/ententy/Category"
 import classNames from "classnames"
 import { useAppSelector } from "../store/storeHooks"
 import { selectCategoriesList } from "../store/slices/categoriesSlice"
-
+import { useGetProductsByCategoryMutation } from "../api/categoriesApi"
 type MenuItemProps = {
   menuItem: Category,
   isActive: boolean,
@@ -11,6 +11,7 @@ type MenuItemProps = {
 }
 const MenuItem = ({ menuItem, isActive, setCurrentIndex }: MenuItemProps) => {
 
+  const [getProducts] = useGetProductsByCategoryMutation();
   const isActiveClass = classNames('nav__submenu', {
     'nav__submenu--active': isActive,
   });
@@ -23,13 +24,12 @@ const MenuItem = ({ menuItem, isActive, setCurrentIndex }: MenuItemProps) => {
       </div>
       <div className={isActiveClass}>
         {menuItem.children?.map((category, index) => (
-          <a className="nav__submenu-item" href="#" key={index}>{category.name}</a>
+          <a className="nav__submenu-item" onClick={() => {getProducts(category.id).unwrap()}} href="#" key={category.id}>{category.name}</a>
         ))}
       </div>
     </>
   )
 }
-
 const Menu = () => {
 
   const [currentIndex, setCurrentIndex] = useState<number | null>(null)

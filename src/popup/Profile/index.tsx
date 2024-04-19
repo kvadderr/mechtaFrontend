@@ -7,6 +7,7 @@ import Address from "./Address";
 import Settings from "./Settings";
 import Exit from "./Exit";
 import Contact from "./Contact";
+import AddMail from "./AddMail";
 
 type Props = {
   isOpen: boolean,
@@ -38,6 +39,8 @@ const Profile = (props: Props) => {
         return <Exit close={closePress} goTo={setCurrentState} />
       case 'contact':
         return <Contact close={closePress} goTo={setCurrentState} />
+      case 'addMail':
+        return <AddMail close={closePress} goTo={setCurrentState} />
       default:
         break;
     }
@@ -45,7 +48,8 @@ const Profile = (props: Props) => {
 
   const modalClass = classNames('popup', {
     'popup--profile popup--default popup--active': isOpen,
-    'popup--align-column popup--addresses': currentState === 'address'
+    'popup--align-column popup--addresses': currentState === 'address',
+    'popup--align-column': currentState === 'addMail'
   });
 
   return (

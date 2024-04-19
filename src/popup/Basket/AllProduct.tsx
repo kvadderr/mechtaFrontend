@@ -1,6 +1,6 @@
-import { selectBasketProduct, selectMobile } from "../../store/slices/dataSlice";
+import { selectBasketProduct, selectMobile } from "../../store/slices/authSlice";
 import { useAppDispatch, useAppSelector } from "../../store/storeHooks";
-import { pushToBasket, decreaseCountAndRemoveIfZero } from "../../store/slices/dataSlice";
+import { pushToBasket, decreaseCountAndRemoveIfZero } from "../../store/slices/authSlice";
 import { Product } from "../../@types/ententy/Product";
 type Props = {
   close: () => void;

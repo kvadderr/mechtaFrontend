@@ -1,13 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../store';
-import { BasketData } from '../../@types/ententy/BasketData';
-import { Product } from '../../@types/ententy/Product';
+import { User } from '../../@types/ententy/User';
 import { Category } from '../../@types/ententy/Category';
-import { categoriesMock } from '../../const/categoriesMock';
+import { Product } from '../../@types/ententy/Product';
+import { BasketData } from '../../@types/ententy/BasketData';
+import authApi from '../../api/authApi';
 
 type AuthState = {
   isAuthorized: boolean;
   mobile: string;
+  me: User,
   categories: Category[];
   products: Product[];
   basketProduct: BasketData[]
@@ -18,7 +20,6 @@ const slice = createSlice({
   initialState: {
     isAuthorized: localStorage.getItem('token') ? true : false,
     mobile: localStorage.getItem('mobile'),
-    categories: categoriesMock,
     basketProduct: <BasketData[]>[],
     products: <Product[]>[],
   } as AuthState,
@@ -68,19 +69,38 @@ const slice = createSlice({
         state.basketProduct.splice(existingProductIndex, 1);
       }
     },
-  }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(
+        authApi.endpoints.check.matchFulfilled,
+        (state, { payload }) => {
+          console.log('niiiice', payload)
+          localStorage.setItem('token', payload.accessToken);
+          state.isAuthorized = true;
+        },
+      )
+      .addMatcher(
+        authApi.endpoints.getMyInformation.matchFulfilled,
+        (state, { payload }) => {
+          state.me = payload
+        },
+      )
+  },
 });
 
 export const selectIsAuthorized = (state: RootState): boolean =>
-  state.dataSlice.isAuthorized;
+  state.authSlice.isAuthorized;
 export const selectMobile = (state: RootState): string =>
-  state.dataSlice.mobile;
+  state.authSlice.mobile;
 export const selectBasketProduct = (state: RootState): BasketData[] =>
-  state.dataSlice.basketProduct;
+  state.authSlice.basketProduct;
 export const selectProducts = (state: RootState): Product[] =>
-  state.dataSlice.products;
+  state.authSlice.products;
 export const selectCategories = (state: RootState): Category[] =>
-  state.dataSlice.categories;
+  state.authSlice.categories;
+export const selectMe = (state: RootState): User =>
+  state.authSlice.me;
 
 export const {
   logout, login, setMobile, pushToBasket, decreaseCountAndRemoveIfZero, removePostion, setProducts

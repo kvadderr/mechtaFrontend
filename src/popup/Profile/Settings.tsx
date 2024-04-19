@@ -1,3 +1,6 @@
+import { selectMe } from "../../store/slices/authSlice";
+import { useAppSelector } from "../../store/storeHooks";
+
 type Props = {
   close: () => void;
   goTo: (path: string) => void;
@@ -6,6 +9,7 @@ type Props = {
 
 const Settings = (props: Props) => {
   const { close, goTo } = props;
+  const me = useAppSelector(selectMe)
   return (
     <>
       <div className="popup__row popup__row--title">
@@ -19,8 +23,19 @@ const Settings = (props: Props) => {
             <div className="profile__header">
               <div className="profile__header-title profile__header-title--space-around">Профиль</div>
             </div>
-            <div className="profile__nav profile__nav--small"><a className="profile__nav-item" href="#"><span className="icon icon--phone"></span><span>+7 (900) 011-39-21</span></a><a className="profile__nav-item" href="#"><span className="icon icon--email"></span><span>Добавить почту</span></a>
-              <div className="profile__nav-item"><span className="icon icon--chain"></span><span>Добавить Telegram</span></div><a className="profile__nav-item" href="#"><span className="icon icon--bell"></span><span>Настроить уведомления</span></a>
+            <div className="profile__nav profile__nav--small">
+              <a className="profile__nav-item" href="#">
+                <span className="icon icon--phone"></span>
+                <span>{me?.phone}</span>
+              </a>
+              <a onClick={() => goTo('addMail')} className="profile__nav-item" href="#">
+                <span className="icon icon--email"></span>
+                <span>{me?.email || "Добавить почту"}</span>
+              </a>
+              <a className="profile__nav-item" href="#">
+                <span className="icon icon--bell"></span>
+                <span>Настроить уведомления</span>
+              </a>
             </div>
             <div className="profile__btn profile__btn--remove-account">Удалить аккаунт</div>
           </div>

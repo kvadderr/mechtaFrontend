@@ -1,7 +1,10 @@
 import { useState } from "react";
 import InputMask from 'react-input-mask';
 import { useAppDispatch } from "../../store/storeHooks";
-import { setMobile } from "../../store/slices/dataSlice";
+
+import LoadingButton from "../../shared/Button/LoadingButton";
+import { useSignMutation } from "../../api/authApi";
+import { setMobile } from "../../store/slices/authSlice";
 
 type Props = {
   close: () => void;
@@ -12,12 +15,16 @@ const PhoneInput = (props: Props) => {
 
   const { close, goTo } = props;
   const dispatch = useAppDispatch();
+  const [sign, { isLoading }] = useSignMutation()
 
   const [phone, setPhone] = useState(' ');
   const onPress = () => {
+    sign({ phone }).unwrap()
     dispatch(setMobile(phone))
     goTo('codeInput')
   }
+
+
 
   return (
     <>
@@ -27,7 +34,7 @@ const PhoneInput = (props: Props) => {
         <div onClick={close} className="popup__btn popup__btn--close"></div>
       </div>
       <div className="popup__row popup__row--sign-in">
-        <form className="sign-in">
+        <div className="sign-in">
           <div className="sign-in__container">
             <div className="sign-in__step sign-in__step--active" data-step="second">
               <div className="sign-in__content sign-in__content--column">
@@ -46,7 +53,9 @@ const PhoneInput = (props: Props) => {
                   />
                 </div>
                 <div className="sign-in__content-row">
-                  <button onClick={onPress} className="button button--red" id="sign-in-get-code" disabled={phone.length != 18}>Получить код</button>
+                  <button onClick={onPress} className="button button--red" id="sign-in-get-code" disabled={phone.length != 18}>
+                    {isLoading ? <LoadingButton /> : "Получить код"}
+                  </button>
                 </div>
               </div>
               <div className="sign-in__footer">
@@ -59,7 +68,7 @@ const PhoneInput = (props: Props) => {
               </div>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </>
   )

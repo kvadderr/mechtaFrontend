@@ -1,4 +1,4 @@
-import { selectMobile } from "../../store/slices/dataSlice";
+import { selectMobile } from "../../store/slices/authSlice";
 import { useAppSelector } from "../../store/storeHooks";
 
 type Props = {

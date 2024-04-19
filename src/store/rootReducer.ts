@@ -2,11 +2,12 @@ import { combineReducers } from 'redux';
 
 import categoriesApi from '../api/categoriesApi';
 
-import dataSlice from './slices/dataSlice';
 import categoriesSlice from './slices/categoriesSlice';
+import authApi from '../api/authApi';
+import authSlice from './slices/authSlice';
 
 export const rootReducer = combineReducers({
   [categoriesApi.reducerPath]: categoriesApi.reducer,
-  dataSlice: dataSlice,
+  authSlice: authSlice,
   categoriesSlice
 });
