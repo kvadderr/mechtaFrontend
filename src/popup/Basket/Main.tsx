@@ -10,6 +10,7 @@ const Main = (props: Props) => {
 
   const { close, goTo } = props;
   const basketProduct = useAppSelector(selectBasketProduct);
+
   return (
     <>
       <div className="popup__row popup__row--title popup__row--gradient-top-to-bottom">
@@ -53,7 +54,7 @@ const Main = (props: Props) => {
                 <div className="basket__offer-subdescr">5000&nbsp;₽</div>
               </div>
             </div>
-            <div className="basket__offer-row">
+            <div onClick={() => goTo("addPromocode")} className="basket__offer-row">
               <div className="basket__offer-subtitle">Промокод</div>
             </div>
             <div className="basket__offer-row basket__offer-row--without-arrow basket__offer-row--space-beetwen basket__offer-row--text-small">

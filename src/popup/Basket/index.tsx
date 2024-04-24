@@ -3,6 +3,7 @@ import { useState } from "react";
 import classNames from "classnames";
 import Main from "./Main";
 import AllProduct from "./AllProduct";
+import AddPromocode from "./AddPromocode.tsx";
 
 type Props = {
   isOpen: boolean,
@@ -30,6 +31,8 @@ const Basket = (props: Props) => {
         return <Main close={closePress} goTo={setCurrentState} />
       case 'allProducts':
         return <AllProduct close={closePress} goTo={setCurrentState} />
+      case 'addPromocode':
+        return <AddPromocode close={closePress} goTo={setCurrentState} />
       default:
         break;
     }
