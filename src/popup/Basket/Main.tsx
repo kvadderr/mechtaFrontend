@@ -110,7 +110,7 @@ const Main = (props: Props) => {
                 <div className="basket__offer-subdescr basket__offer-subdescr--black">{basketProduct.reduce((total, basketData) => total + basketData.count * basketData.products.price, 0)}&nbsp;₽</div>
               </div>
             </div>
-            <div className="button button--red button--two-lines">Продолжить<br /><span className="button__text--small">к&nbsp;оплате</span></div>
+            <div onClick={() => goTo("orderConfirmed")} className="button button--red button--two-lines">Продолжить<br /><span className="button__text--small">к&nbsp;оплате</span></div>
           </div>
         </div>
       </div>

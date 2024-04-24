@@ -6,6 +6,8 @@ import AllProduct from "./AllProduct";
 import AddPromocode from "./AddPromocode.tsx";
 import AddBonus from "./AddBonus.tsx";
 import SetPayment from "./SetPayment.tsx";
+import OrderConfirmed from "./OrderConfirmed.tsx";
+import OrderCompleted from "./OrderCompleted.tsx";
 
 type Props = {
     isOpen: boolean,
@@ -39,6 +41,10 @@ const Basket = (props: Props) => {
                 return <AddBonus close={closePress} goTo={setCurrentState}/>
             case 'setPayment':
                 return <SetPayment close={closePress} goTo={setCurrentState}/>
+            case 'orderConfirmed':
+                return <OrderConfirmed close={closePress} goTo={setCurrentState}/>
+            case 'orderCompleted':
+                return <OrderCompleted close={closePress} goTo={setCurrentState}/>
             default:
                 break;
         }
