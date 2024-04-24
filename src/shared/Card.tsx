@@ -7,7 +7,7 @@ import { BasketData } from "../@types/ententy/BasketData";
 
 type ProductCardProps = {
   product: Product;
-  openInfo: () => void;
+  openInfo?: () => void;
 }
 
 type BasketProductProps = {
