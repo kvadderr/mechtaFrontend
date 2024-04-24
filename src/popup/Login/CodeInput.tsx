@@ -18,7 +18,7 @@ const CodeInput = (props: Props) => {
     const inputsRef = [useRef(), useRef(), useRef(), useRef()];
     const [
         checkCode,
-        // {isError, data}
+        {isError, data}
     ] = useCheckMutation()
 
     const handleChange = (index: number, e: any) => {
