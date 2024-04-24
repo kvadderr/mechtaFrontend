@@ -1,5 +1,5 @@
 import {useState, useRef, useEffect} from "react";
-import {useAppDispatch, useAppSelector} from "../../store/storeHooks";
+import {useAppSelector} from "../../store/storeHooks";
 import {selectMobile} from "../../store/slices/authSlice";
 import {useCheckMutation} from "../../api/authApi";
 import ErrorLabel from "../../shared/Label/ErrorLabel";
@@ -12,13 +12,13 @@ type Props = {
 const CodeInput = (props: Props) => {
 
     const {close, goTo} = props;
-    const dispatch = useAppDispatch();
+    // const dispatch = useAppDispatch();
     const phone = useAppSelector(selectMobile)
     const [codes, setCodes] = useState(['', '', '', '']);
     const inputsRef = [useRef(), useRef(), useRef(), useRef()];
     const [
         checkCode,
-        {isError, data}
+        {isError}
     ] = useCheckMutation()
 
     const handleChange = (index: number, e: any) => {
@@ -28,6 +28,7 @@ const CodeInput = (props: Props) => {
             newCodes[index] = value;
             setCodes(newCodes);
             if (value !== '' && index < 3 && inputsRef[index + 1]?.current) {
+                // @ts-ignore
                 inputsRef[index + 1].current.focus();
             }
         }
@@ -73,6 +74,7 @@ const CodeInput = (props: Props) => {
                                                 pattern="\d{1}"
                                                 maxLength={1}
                                                 value={code}
+                                                // @ts-ignore
                                                 ref={inputsRef[index]}
                                                 onChange={(e) => handleChange(index, e)}
                                             />
