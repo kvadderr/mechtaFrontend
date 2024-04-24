@@ -31,7 +31,7 @@ const Home = ({ openInfo }: Props) => {
       <div className="content__row">
         <div className="section">
           <div className="section__container">
-            
+           
           </div>
         </div>
       </div>
