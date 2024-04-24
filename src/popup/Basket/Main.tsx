@@ -10,6 +10,7 @@ const Main = (props: Props) => {
 
   const { close, goTo } = props;
   const basketProduct = useAppSelector(selectBasketProduct);
+
   return (
     <>
       <div className="popup__row popup__row--title popup__row--gradient-top-to-bottom">
@@ -42,7 +43,7 @@ const Main = (props: Props) => {
                 <div className="basket__offer-subdescr">кв. 3</div>
               </div>
             </div>
-            <div className="basket__offer-row">
+            <div onClick={() => goTo("setPayment")} className="basket__offer-row">
               <div className="basket__offer-subtitle">Способ оплаты</div>
             </div>
             <div className="basket__offer-row basket__offer-row--without-arrow basket__offer-row--space-beetwen basket__offer-row--text-small">
@@ -53,7 +54,7 @@ const Main = (props: Props) => {
                 <div className="basket__offer-subdescr">5000&nbsp;₽</div>
               </div>
             </div>
-            <div className="basket__offer-row">
+            <div onClick={() => goTo("addPromocode")} className="basket__offer-row">
               <div className="basket__offer-subtitle">Промокод</div>
             </div>
             <div className="basket__offer-row basket__offer-row--without-arrow basket__offer-row--space-beetwen basket__offer-row--text-small">
@@ -64,7 +65,7 @@ const Main = (props: Props) => {
                 <div className="basket__offer-subdescr">A24KJ24</div>
               </div>
             </div>
-            <div className="basket__offer-row">
+            <div onClick={() => goTo("addBonus")} className="basket__offer-row">
               <div className="basket__offer-subtitle">Бонусы</div>
             </div>
             <div className="basket__offer-row basket__offer-row--without-arrow basket__offer-row--space-beetwen basket__offer-row--text-small">
@@ -109,7 +110,7 @@ const Main = (props: Props) => {
                 <div className="basket__offer-subdescr basket__offer-subdescr--black">{basketProduct.reduce((total, basketData) => total + basketData.count * basketData.products.price, 0)}&nbsp;₽</div>
               </div>
             </div>
-            <div className="button button--red button--two-lines">Продолжить<br /><span className="button__text--small">к&nbsp;оплате</span></div>
+            <div onClick={() => goTo("orderConfirmed")} className="button button--red button--two-lines">Продолжить<br /><span className="button__text--small">к&nbsp;оплате</span></div>
           </div>
         </div>
       </div>
