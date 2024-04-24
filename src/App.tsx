@@ -16,6 +16,9 @@ import ProductInfo from "./popup/Product"
 import SelectAddress from "./popup/SelectAdress"
 import { useGetCategoriesQuery } from "./api/categoriesApi"
 import { useGetMyInformationMutation } from "./api/authApi"
+import { Category } from "./@types/ententy/Category"
+import { selectCurrentCategory } from "./store/slices/categoriesSlice"
+import CategoryProduct from "./pages/CategoryProduct"
 
 function App() {
 
@@ -29,10 +32,12 @@ function App() {
   const [addressOpen, setAddressOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState('')
   const [searchData, setSearchData] = useState<Product[]>()
-  const [currentMenuItem, setCurrentMenuItem] = useState<number | null>(null)
+
   const [getMe] = useGetMyInformationMutation();
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(selectIsAuthorized)
+  const currentCategory = useAppSelector(selectCurrentCategory);
+
   const gridRightClass = classNames('grid__col grid__col--right', {
     'grid__col--include-rows': isAuth,
   });
@@ -69,7 +74,13 @@ function App() {
           <div className="content">
             <BasketPopup isOpen={basketOpen} close={() => setBasketOpen(false)} />
             <SearchHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            {searchQuery.length > 0 ? <Search data={searchData} /> : <Home openInfo={() => setProductInfoOpen(true)} />}
+            {
+              searchQuery.length > 0 ?
+                <Search data={searchData} /> :
+                (
+                  currentCategory ? <CategoryProduct data={currentCategory.products} /> :
+                    <Home openInfo={() => setProductInfoOpen(true)} />
+                )}
             <Faq isOpen={faqOpen} close={() => setFaqOpen(false)} />
             <Profile isOpen={profileOpen} close={() => setProfileOpen(false)} />
             <Login isOpen={loginOpen} close={() => setLoginOpen(false)} />
