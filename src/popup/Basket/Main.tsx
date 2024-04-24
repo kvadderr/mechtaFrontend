@@ -43,7 +43,7 @@ const Main = (props: Props) => {
                 <div className="basket__offer-subdescr">кв. 3</div>
               </div>
             </div>
-            <div className="basket__offer-row">
+            <div onClick={() => goTo("setPayment")} className="basket__offer-row">
               <div className="basket__offer-subtitle">Способ оплаты</div>
             </div>
             <div className="basket__offer-row basket__offer-row--without-arrow basket__offer-row--space-beetwen basket__offer-row--text-small">

@@ -33,7 +33,7 @@ const AddBonus = (props: Props) => {
             <>
                 <div className="popup__row popup__row--title popup__row--gradient-top-to-bottom">
                     <div onClick={() => goTo('main')} className="popup__btn popup__btn--back"></div>
-                    <div className="popup__title">{!basketProduct/*.bonus*/ ? "Бонус" : "Изменить бонус"}</div>
+                    <div className="popup__title">{!basketProduct/*.bonus*/ ? "Бонус" : "Изменить бонусa"}</div>
                     <div onClick={close} className="popup__btn popup__btn--close"></div>
                 </div>
                 <div className="popup__row popup__row--adaptive-height">
