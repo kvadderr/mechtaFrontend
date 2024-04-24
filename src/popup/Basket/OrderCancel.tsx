@@ -17,9 +17,9 @@ const OrderConfirmed = (props: Props) => {
                 <div onClick={close} className="popup__btn popup__btn--close"></div>
             </div>
             <div className="basket__offer-row basket__offer-row--without-arrow">
-                <div className="basket__order-status basket__order-status--order-confirmed">
+                <div className="basket__order-status basket__order-status--error">
                     <div className="basket__order-status-icon"></div>
-                    <div className="basket__order-status-text">Заказ выполнен</div>
+                    <div className="basket__order-status-text">Заказ отменен</div>
                 </div>
             </div>
             <div className="basket__btns-wrapper"><a className="button button--gray" href="https://t.me/apgrayedd" target="_blank">Связаться с нами</a><a className="button button--gray" href="#">Повторить заказ</a></div>

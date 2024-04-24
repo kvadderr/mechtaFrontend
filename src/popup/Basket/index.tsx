@@ -45,6 +45,8 @@ const Basket = (props: Props) => {
                 return <OrderConfirmed close={closePress} goTo={setCurrentState}/>
             case 'orderCompleted':
                 return <OrderCompleted close={closePress} goTo={setCurrentState}/>
+            case 'orderWaiting':
+                return <OrderCompleted close={closePress} goTo={setCurrentState}/>
             default:
                 break;
         }
