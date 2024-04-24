@@ -4,6 +4,7 @@ import classNames from "classnames";
 import Main from "./Main";
 import AllProduct from "./AllProduct";
 import AddPromocode from "./AddPromocode.tsx";
+import AddBonus from "./AddBonus.tsx";
 
 type Props = {
   isOpen: boolean,
@@ -33,6 +34,8 @@ const Basket = (props: Props) => {
         return <AllProduct close={closePress} goTo={setCurrentState} />
       case 'addPromocode':
         return <AddPromocode close={closePress} goTo={setCurrentState} />
+      case 'addBonus':
+        return <AddBonus close={closePress} goTo={setCurrentState} />
       default:
         break;
     }

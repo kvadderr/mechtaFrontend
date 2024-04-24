@@ -1,7 +1,6 @@
 import {useState} from "react";
-import {useUpdateMeMutation} from "../../api/authApi";
 import {useAppSelector} from "../../store/storeHooks.ts";
-import {selectBasketProduct, selectMe} from "../../store/slices/authSlice.ts";
+import {selectBasketProduct} from "../../store/slices/authSlice.ts";
 
 
 type Props = {
@@ -13,6 +12,7 @@ type Props = {
 const AddPromocode = (props: Props) => {
     const {close, goTo} = props;
     const [promocode, setPromocode] = useState('');
+    const [error, _] = useState(true);
     // const [updMe] = useUpdateMeMutation();
     const basketProduct = useAppSelector(selectBasketProduct);
 
@@ -36,7 +36,11 @@ const AddPromocode = (props: Props) => {
                             <div className="profile__input-simple-row">
                                 <div className="profile__input-simple-title">Промокод</div>
                                 <input className="profile__input-simple-input" type="text" name="" value={promocode}
-                                       onChange={(e) => setPromocode(e.target.value)} placeholder=""/>
+                                       onChange={(e) => setPromocode(e.target.value)} placeholder=""
+                                />
+                                {
+                                    error && <span className="basket__input-simple-message">Промокод не найден или <br/> истек срок годности промокода</span>
+                                }
                             </div>
                         </div>
                     </div>
