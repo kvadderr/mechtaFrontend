@@ -34,30 +34,30 @@ const AllProduct = (props: Props) => {
           <div className="basket__offer-container">
             {basketProduct.map((item, index) => {
               return (
-                <div className="basket-product" data-product-basket-id="1">
-                <div className="basket-product__container">
-                  <div className="basket-product__col basket-product__col--left"><a className="basket-product__link" href="#" title=""><img className="basket-product__img" src={item.products.image} alt=""/></a></div>
-                  <div className="basket-product__col basket-product__col--center">
-                    <div className="basket-product__title">{item.products.name}</div>
-                    <div className="basket-product__subtitle">{item.products.unit}</div>
-                    <div className="basket-product__controls">
-                      <div className="basket-product__controls-col basket-product__controls-col--remove-product">
-                        <div onClick={() => decrase(item.products)} className="basket-product__controls-ctrl basket-product__controls-ctrl--minus"></div>
-                      </div>
-                      <div className="basket-product__controls-col">
-                        <div className="basket-product__controls-counter">{item.count}</div>
-                      </div>
-                      <div className="basket-product__controls-col basket-product__controls-col--add-product basket-product__controls-col--active">
-                        <div onClick={() => addToBasket(item.products)} className="basket-product__controls-ctrl basket-product__controls-ctrl--plus"></div>
+                <div key={index} className="basket-product" data-product-basket-id="1">
+                  <div className="basket-product__container">
+                    <div className="basket-product__col basket-product__col--left"><a className="basket-product__link" href="#" title=""><img className="basket-product__img" src={item.products.img} alt="" /></a></div>
+                    <div className="basket-product__col basket-product__col--center">
+                      <div className="basket-product__title">{item.products.name}</div>
+                      <div className="basket-product__subtitle">{item.products.value + " " + item.products.measurement}</div>
+                      <div className="basket-product__controls">
+                        <div className="basket-product__controls-col basket-product__controls-col--remove-product">
+                          <div onClick={() => decrase(item.products)} className="basket-product__controls-ctrl basket-product__controls-ctrl--minus"></div>
+                        </div>
+                        <div className="basket-product__controls-col">
+                          <div className="basket-product__controls-counter">{item.count}</div>
+                        </div>
+                        <div className="basket-product__controls-col basket-product__controls-col--add-product basket-product__controls-col--active">
+                          <div onClick={() => addToBasket(item.products)} className="basket-product__controls-ctrl basket-product__controls-ctrl--plus"></div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                  <div className="basket-product__col basket-product__col--right">
-                    <button className="basket-product__btn basket-product__btn--remove"></button>
-                    <div className="basket-product__price" data-price="1234">{item.products.price * item.count}&nbsp;₽</div>
+                    <div className="basket-product__col basket-product__col--right">
+                      <button className="basket-product__btn basket-product__btn--remove"></button>
+                      <div className="basket-product__price" data-price="1234">{item.products.price * item.count}&nbsp;₽</div>
+                    </div>
                   </div>
                 </div>
-              </div>
               )
             })}
           </div>

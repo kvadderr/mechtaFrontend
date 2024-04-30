@@ -9,7 +9,7 @@ type Props = {
 }
 
 const Home = ({ openInfo }: Props) => {
-  const categories = useAppSelector(selectCategoriesList);
+  
   return (
     <>
       <div className="content__row">
@@ -31,7 +31,19 @@ const Home = ({ openInfo }: Props) => {
       <div className="content__row">
         <div className="section">
           <div className="section__container">
-           
+            <div className="section__row section__row--grid-4-cols"><a className="card-promo" href="#">
+              <div className="card-promo__container">
+                <h2>Сладкое к завтраку</h2><img src="https://mechta-crimea.ru/test/img/card-promo/1.webp" alt=""/>
+              </div></a><a className="card-promo" href="#">
+                <div className="card-promo__container">
+                  <h2>Сладкое к завтраку</h2><img src="https://mechta-crimea.ru/test/img/card-promo/1.webp" alt=""/>
+                </div></a><a className="card-promo" href="#">
+                <div className="card-promo__container">
+                  <h2>Сладкое к завтраку</h2><img src="https://mechta-crimea.ru/test/img/card-promo/1.webp" alt=""/>
+                </div></a><a className="card-promo" href="#">
+                <div className="card-promo__container">
+                  <h2>Сладкое к завтраку</h2><img src="https://mechta-crimea.ru/test/img/card-promo/1.webp" alt=""/>
+                </div></a></div>
           </div>
         </div>
       </div>

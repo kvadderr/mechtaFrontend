@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 
 import classNames from "classnames";
 import Main from "./Main";
@@ -8,6 +8,7 @@ import AddBonus from "./AddBonus.tsx";
 import SetPayment from "./SetPayment.tsx";
 import OrderConfirmed from "./OrderConfirmed.tsx";
 import OrderCompleted from "./OrderCompleted.tsx";
+import OrderDetail from "./OrderDetail.tsx";
 
 type Props = {
     isOpen: boolean,
@@ -16,7 +17,7 @@ type Props = {
 
 const Basket = (props: Props) => {
 
-    const {isOpen, close} = props;
+    const { isOpen, close } = props;
     const [currentState, setCurrentState] = useState('main');
 
     const modalClass = classNames('popup', {
@@ -32,21 +33,23 @@ const Basket = (props: Props) => {
     const Render = () => {
         switch (currentState) {
             case 'main':
-                return <Main close={closePress} goTo={setCurrentState}/>
+                return <Main close={closePress} goTo={setCurrentState} />
             case 'allProducts':
-                return <AllProduct close={closePress} goTo={setCurrentState}/>
+                return <AllProduct close={closePress} goTo={setCurrentState} />
             case 'addPromocode':
-                return <AddPromocode close={closePress} goTo={setCurrentState}/>
+                return <AddPromocode close={closePress} goTo={setCurrentState} />
             case 'addBonus':
-                return <AddBonus close={closePress} goTo={setCurrentState}/>
+                return <AddBonus close={closePress} goTo={setCurrentState} />
             case 'setPayment':
-                return <SetPayment close={closePress} goTo={setCurrentState}/>
+                return <SetPayment close={closePress} goTo={setCurrentState} />
             case 'orderConfirmed':
-                return <OrderConfirmed close={closePress} goTo={setCurrentState}/>
+                return <OrderConfirmed close={closePress} goTo={setCurrentState} />
             case 'orderCompleted':
-                return <OrderCompleted close={closePress} goTo={setCurrentState}/>
+                return <OrderCompleted close={closePress} goTo={setCurrentState} />
             case 'orderWaiting':
-                return <OrderCompleted close={closePress} goTo={setCurrentState}/>
+                return <OrderCompleted close={closePress} goTo={setCurrentState} />
+            case 'orderDetail':
+                return <OrderDetail close={closePress} goTo={setCurrentState} />
             default:
                 break;
         }
@@ -55,7 +58,7 @@ const Basket = (props: Props) => {
     return (
         <div className={modalClass} data-popup="sign-in">
             <div className="popup__container">
-                <Render/>
+                <Render />
             </div>
             <div onClick={close} className="popup__overlay"></div>
         </div>

@@ -1,11 +1,18 @@
-import { Product } from "../@types/ententy/Product"
+import { useLocation } from 'react-router-dom';
 import { ProductCard } from "../shared/Card"
+import { useGetProductsByCategoryMutation } from '../api/categoriesApi';
+import { useEffect } from 'react';
 
-type Props = {
-  data: Product[] | undefined
-}
+const CategoryProduct = () => {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const category_id = query.get('id');
 
-const CategoryProduct = ({ data }: Props) => {
+  const [getProductsByCategory, { data }] = useGetProductsByCategoryMutation()
+
+  useEffect(() => {
+    getProductsByCategory(category_id)
+  }, [category_id])
   return (
     <>
       <div className="content__row">

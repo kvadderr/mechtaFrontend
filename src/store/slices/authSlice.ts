@@ -5,6 +5,8 @@ import { Category } from '../../@types/ententy/Category';
 import { Product } from '../../@types/ententy/Product';
 import { BasketData } from '../../@types/ententy/BasketData';
 import authApi from '../../api/authApi';
+import { PromocodeDto } from '../../@types/ententy/Promocode';
+import orderApi from '../../api/orderApi';
 
 type AuthState = {
   isAuthorized: boolean;
@@ -13,6 +15,8 @@ type AuthState = {
   categories: Category[];
   products: Product[];
   basketProduct: BasketData[]
+  currentBasketPromocode: PromocodeDto | null
+  currentBasketBonus: 0
 };
 
 const slice = createSlice({
@@ -22,6 +26,7 @@ const slice = createSlice({
     mobile: localStorage.getItem('mobile'),
     basketProduct: <BasketData[]>[],
     products: <Product[]>[],
+    currentBasketBonus: 0
   } as AuthState,
   reducers: {
     logout: (state) => {
@@ -38,6 +43,9 @@ const slice = createSlice({
     },
     setProducts: (state, { payload }) => {
       state.products = payload;
+    },
+    setCurrentBasketBonus: (state, { payload }) => {
+      state.currentBasketBonus = payload;
     },
     pushToBasket: (state, { payload }) => {
       const { basketProduct } = state;
@@ -86,6 +94,12 @@ const slice = createSlice({
           state.me = payload
         },
       )
+      .addMatcher(
+        orderApi.endpoints.getPromocode.matchFulfilled,
+        (state, { payload }) => {
+          state.currentBasketPromocode = payload
+        },
+      )
   },
 });
 
@@ -101,9 +115,13 @@ export const selectCategories = (state: RootState): Category[] =>
   state.authSlice.categories;
 export const selectMe = (state: RootState): User =>
   state.authSlice.me;
+export const selectPromocode = (state: RootState): PromocodeDto | null =>
+  state.authSlice.currentBasketPromocode;
+export const selectCurrentBasketBonus = (state: RootState): number =>
+  state.authSlice.currentBasketBonus;
 
 export const {
-  logout, login, setMobile, pushToBasket, decreaseCountAndRemoveIfZero, removePostion, setProducts
+  logout, login, setMobile, pushToBasket, decreaseCountAndRemoveIfZero, removePostion, setProducts, setCurrentBasketBonus
 } = slice.actions;
 
 export default slice.reducer;

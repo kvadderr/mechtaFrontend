@@ -45,14 +45,14 @@ export const ProductCard = (props: ProductCardProps) => {
 
   return (
     <div className="preview-product" data-product-id="102">
-      <div  className="preview-product__container">
-        <div onClick={props.openInfo}  className="preview-product__row preview-product__row--image" data-link="product">
+      <div className="preview-product__container">
+        <div onClick={props.openInfo} className="preview-product__row preview-product__row--image" data-link="product">
           <div className={quantityClass}>{count}</div>
-          <img className="preview-product__img" src="https://mechta-crimea.ru/test/img/preview-product/1.png" />
+          <img className="preview-product__img" src={product.img} />
         </div>
         <div className="preview-product__row preview-product__row--info">
-          <div onClick={props.openInfo}  className="preview-product__title" data-link="product">{product.name}</div>
-          <div onClick={props.openInfo}  className="preview-product__descr"><span className="preview-product__descr-text">{product.value} {product.measurement}</span></div>
+          <div onClick={props.openInfo} className="preview-product__title" data-link="product">{product.name}</div>
+          <div onClick={props.openInfo} className="preview-product__descr"><span className="preview-product__descr-text">{product.value} {product.measurement}</span></div>
           <div className="preview-product__row preview-product__row--controls preview-product__row--mobile">
 
             <div onClick={decrase} className={minusClass}>
@@ -107,7 +107,7 @@ export const BasketProductCard = (props: BasketProductProps) => {
   return (
     <div className="basket-product" data-product-basket-id="116">
       <div className="basket-product__container">
-        <div className="basket-product__col basket-product__col--left"><a className="basket-product__link" href="#" title=""><img className="basket-product__img" src="https://mechta-crimea.ru/test/img/preview-product/1.png" alt="" /></a></div>
+        <div className="basket-product__col basket-product__col--left"><a className="basket-product__link" href="#" title=""><img className="basket-product__img" src={product.img} alt="" /></a></div>
         <div className="basket-product__col basket-product__col--center">
           <div className="basket-product__title">{product.name}</div>
           <div className="basket-product__subtitle">{product.value}</div>

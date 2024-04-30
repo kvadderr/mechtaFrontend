@@ -1,9 +1,10 @@
 import { useState } from "react"
 import { Category } from "../@types/ententy/Category"
 import classNames from "classnames"
-import { useAppDispatch, useAppSelector } from "../store/storeHooks"
-import { selectCategoriesList, setCurrentCategory } from "../store/slices/categoriesSlice"
-import { useGetProductsByCategoryMutation } from "../api/categoriesApi"
+import { useAppSelector } from "../store/storeHooks"
+import { selectCategoriesList } from "../store/slices/categoriesSlice"
+import { useNavigate } from 'react-router-dom';
+
 type MenuItemProps = {
   menuItem: Category,
   isActive: boolean,
@@ -11,12 +12,14 @@ type MenuItemProps = {
 }
 const MenuItem = ({ menuItem, isActive, setCurrentIndex }: MenuItemProps) => {
 
-  const dispatch = useAppDispatch()
-  const [getProducts] = useGetProductsByCategoryMutation();
+  const navigate = useNavigate();
   const isActiveClass = classNames('nav__submenu', {
     'nav__submenu--active': isActive,
   });
 
+  const goToCategory = (category: string) => {
+    navigate(`/category?id=${category}`);
+  }
 
   return (
     <>
@@ -25,8 +28,8 @@ const MenuItem = ({ menuItem, isActive, setCurrentIndex }: MenuItemProps) => {
         <div className="nav__text">{menuItem.name}</div>
       </div>
       <div className={isActiveClass}>
-        {menuItem.children?.map((category, index) => (
-          <a className="nav__submenu-item" onClick={() => {dispatch(setCurrentCategory(category))}} href="#" key={category.id}>{category.name}</a>
+        {menuItem.children?.map((category) => (
+          <a className="nav__submenu-item" onClick={() => goToCategory(category.id)} key={category.id}>{category.name}</a>
         ))}
       </div>
     </>

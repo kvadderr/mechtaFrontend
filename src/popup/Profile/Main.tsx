@@ -1,4 +1,4 @@
-import { selectMobile } from "../../store/slices/authSlice";
+import { selectMe, selectMobile } from "../../store/slices/authSlice";
 import { useAppSelector } from "../../store/storeHooks";
 
 type Props = {
@@ -10,6 +10,7 @@ const Main = (props: Props) => {
 
   const { close, goTo } = props;
   const mobile = useAppSelector(selectMobile);
+  const me = useAppSelector(selectMe)
   return (
     <>
       <div className="popup__row popup__row--title">
@@ -25,7 +26,7 @@ const Main = (props: Props) => {
               <div className="profile__header-bonuses">
                 <div className="profile__header-bonuses-col">
                   <div className="profile__header-bonuses-title">Бонусы</div>
-                  <div className="profile__header-bonuses-title">0</div>
+                  <div className="profile__header-bonuses-title">{me?.bonus}</div>
                   <div className="profile__header-bonuses-descr">1&nbsp;бонус = 1&nbsp;₽</div>
                 </div>
                 <div className="profile__header-bonuses-col">

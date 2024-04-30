@@ -8,7 +8,8 @@ import Promo from "./components/Promo"
 import { useAppDispatch, useAppSelector } from "./store/storeHooks"
 import { selectIsAuthorized } from "./store/slices/authSlice"
 import { Product } from "./@types/ententy/Product"
-import productsMock from "./const/productMock"
+import { Routes, Route, useNavigate } from 'react-router-dom';
+
 import Search from "./pages/Search"
 
 import BasketPopup from "./popup/Basket"
@@ -37,14 +38,23 @@ function App() {
   const dispatch = useAppDispatch();
   const isAuth = useAppSelector(selectIsAuthorized)
   const currentCategory = useAppSelector(selectCurrentCategory);
+  const navigate = useNavigate();
+
 
   const gridRightClass = classNames('grid__col grid__col--right', {
     'grid__col--include-rows': isAuth,
   });
 
   useEffect(() => {
-
-  }, [])
+    // Проверяем, не пустой ли запрос
+    if (searchQuery.trim()) {
+      // Формируем URL с параметром поиска
+      navigate(`/search?q=${encodeURIComponent(searchQuery)}`);
+    }
+    if (searchQuery.length === 0) {
+      navigate(`/`);
+    }
+  }, [searchQuery]);
 
   useEffect(() => {
     function searchProductByName(name: string): Product[] {
@@ -74,13 +84,11 @@ function App() {
           <div className="content">
             <BasketPopup isOpen={basketOpen} close={() => setBasketOpen(false)} />
             <SearchHeader searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-            {
-              searchQuery.length > 0 ?
-                <Search data={searchData} /> :
-                (
-                  currentCategory ? <CategoryProduct data={currentCategory.products} /> :
-                    <Home openInfo={() => setProductInfoOpen(true)} />
-                )}
+            <Routes>
+              <Route path="/" element={<Home openInfo={() => setProductInfoOpen(true)} />} />
+              <Route path="/category" element={<CategoryProduct />} />
+              <Route path="/search" element={<Search data={searchData} />} />
+            </Routes>
             <Faq isOpen={faqOpen} close={() => setFaqOpen(false)} />
             <Profile isOpen={profileOpen} close={() => setProfileOpen(false)} />
             <Login isOpen={loginOpen} close={() => setLoginOpen(false)} />

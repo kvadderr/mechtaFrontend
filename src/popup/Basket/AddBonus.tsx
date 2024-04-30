@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
-import {useAppSelector} from "../../store/storeHooks.ts";
-import {selectBasketProduct, selectMe} from "../../store/slices/authSlice.ts";
+import {useAppDispatch, useAppSelector} from "../../store/storeHooks.ts";
+import {selectBasketProduct, selectCurrentBasketBonus, selectMe, setCurrentBasketBonus} from "../../store/slices/authSlice.ts";
 
 
 type Props = {
@@ -11,6 +11,7 @@ type Props = {
 
 const AddBonus = (props: Props) => {
     const {close, goTo} = props;
+    const dispatch = useAppDispatch();
     const [bonus, setBonus] = useState<number>(0);
     const [error, setError] = useState(false);
     // const [updMe] = useUpdateMeMutation();
@@ -18,6 +19,7 @@ const AddBonus = (props: Props) => {
     const me = useAppSelector(selectMe);
 
     const click = () => {
+        !error && dispatch(setCurrentBasketBonus(bonus))
         goTo("main")
         // updMe({email: mail}).unwrap().then(
         //     _ => goTo("settings")
@@ -44,7 +46,7 @@ const AddBonus = (props: Props) => {
                                 <div className="basket__input-simple-input basket__input-simple-input--border-none">{me.bonus}</div>
                             </div>
                             <div className="profile__input-simple-row">
-                                <div className="profile__input-simple-title">Промокод</div>
+                                <div className="profile__input-simple-title">Бонус</div>
                                 <input className="profile__input-simple-input" type="text" name="" value={bonus}
                                        onChange={(e) => {
                                            if (!e.target.value) {

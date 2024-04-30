@@ -5,4 +5,5 @@ export type Product = {
   value: string
   measurement: string
 	category_id: string
+  img: string
 }
