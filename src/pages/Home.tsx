@@ -23,7 +23,7 @@ const Home = ({ openInfo }: Props) => {
             reloadOnUpdate
           >
             <div className="promo__carousel-item"><img src="https://mechta-crimea.ru/test/img/promo/1.webp" /></div>
-            <div className="promo__carousel-item"><img src="https://mechta-crimea.ru/test/img/promo/2.webp" /></div>
+            <div className="promo__carousel-item"><img src="https://ks-yanao.ru/images/insecure/rs:fill-down:1440:810/aHR0cHM6Ly84NTQyMjAuc2VsY2RuLnJ1L3lhbWFsbmV3cy82ZjQ0Yjg3MC02ZDYud2VicA.webp" /></div>
             <div className="promo__carousel-item"><img src="https://mechta-crimea.ru/test/img/promo/3.webp" /></div>
           </Flickity>
         </div>
